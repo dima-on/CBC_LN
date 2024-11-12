@@ -11,8 +11,9 @@ from Backend import dop
 import logging
 
 app = flask.Flask(__name__)
-log = logging.getLogger('werkzeug')
+log = logging.getLogger("werkzeug")
 log.setLevel(logging.ERROR)
+
 
 class Server:
     """Class for controll of server"""
@@ -22,7 +23,10 @@ class Server:
         :param port: which port will be using
         """
         path = config.SERVER_DIRECTORY + ".info"
-        if synchronization.Checker(config.SERVER_DIRECTORY).File_Is_Be(".info") == False:
+        if (
+            synchronization.Checker(config.SERVER_DIRECTORY).File_Is_Be(".info")
+            == False
+        ):
             os.mkdir(path)
             with open(str(path) + "\\" + "data.json", "w") as json_file:
                 json.dump({}, json_file)
@@ -30,12 +34,10 @@ class Server:
         else:
             config.DATA_PATH = str(path) + "\\" + "data.json"
 
-                
         self.Port = port
 
     def Start_Server(self):
-        app.run(host='0.0.0.0', port= self.Port)
-         
+        app.run(host="0.0.0.0", port=self.Port)
 
     def Get_Info(self) -> tuple[str, int]:
 
@@ -43,7 +45,7 @@ class Server:
         ip_address = socket.gethostbyname(hostname)
 
         return ip_address, self.Port
-    
+
     @app.route("/" + config.PATH_NAME["Add File"], methods=["POST"])
     def Add_File():
         """
@@ -56,7 +58,6 @@ class Server:
         current_path = flask.request.form.get("current path")
 
         dop.start_file(name)
-
 
         checker = synchronization.Checker(path=config.SERVER_DIRECTORY + current_path)
         if file:
@@ -89,10 +90,11 @@ class Server:
 
         if current_path != ".info" and name != ".info":
 
-            path =  config.SERVER_DIRECTORY + current_path + name
-            checker = synchronization.Checker(path=config.SERVER_DIRECTORY + current_path)
+            path = config.SERVER_DIRECTORY + current_path + name
+            checker = synchronization.Checker(
+                path=config.SERVER_DIRECTORY + current_path
+            )
             is_be = checker.File_Is_Be(name)
-
 
             if is_be == True:
                 if os.path.isdir(path):
@@ -100,7 +102,6 @@ class Server:
                 else:
                     size = os.path.getsize(path)
                     os.remove(path)
-
 
                 # data_class = synchronization.Data(config.DATA_PATH)
                 # data_class.Write_Data(
@@ -165,12 +166,11 @@ class Server:
                     return "False", 200
 
         return "Error", 400
-    
+
     @app.route("/" + config.PATH_NAME["Add Folder"], methods=["POST"])
     def Add_Folder():
         name = flask.request.form.get("name")
         path = config.SERVER_DIRECTORY + name
-
 
         if not os.path.exists(path):
             os.makedirs(path)
@@ -187,7 +187,7 @@ class Server:
         current_path: str = flask.request.form.get("current_path")
 
         names = eval(names)
-        
+
         removed_names: list[str] = []
 
         for element in os.listdir(config.SERVER_DIRECTORY + current_path):
@@ -206,6 +206,3 @@ class Server:
     def Get_Status():
         """return info"""
         return synchronization.Data(config.DATA_PATH).Read_Data(), 200
-
-
-

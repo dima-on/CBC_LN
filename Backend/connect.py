@@ -19,14 +19,14 @@ class Connect:
 
             files = {"file": (file)}
 
-            data_dict = {"name": file_name,
-                        "current path": current_path}
+            data_dict = {"name": file_name, "current path": current_path}
             response = requests.post(url=url, files=files, data=data_dict)
-            
-            file_size = os.path.getsize(config.CLIENT_DIRECTORY + current_path + "\\" + file_path)
+
+            file_size = os.path.getsize(
+                config.CLIENT_DIRECTORY + current_path + "\\" + file_path
+            )
 
             return response, file_size
-        
 
     def Remove_File(self, file_name: str, current_path: str) -> requests:
         """
@@ -36,10 +36,7 @@ class Connect:
 
         url = self.Ip + "/" + self.comands_names["Remove File"]
 
-        data_dict = {
-            "name": file_name,
-            "current_path": current_path
-        }
+        data_dict = {"name": file_name, "current_path": current_path}
 
         response = requests.post(url=url, data=data_dict)
 
@@ -52,17 +49,13 @@ class Connect:
         """
 
         url = self.Ip + "/" + self.comands_names["Check Removed"]
-        data_dict ={
+        data_dict = {
             "names": str(file_names),
             "current_path": current_path,
-
         }
-
-        
 
         response = requests.get(url=url, data=data_dict)
         return eval(response.text)
-        
 
     def Add_Folder(self, folder_path: str) -> requests:
         url = self.Ip + "/" + self.comands_names["Add Folder"]
@@ -81,8 +74,7 @@ class Connect:
 
             files = {"file": (file)}
 
-            data_dict = {"name": file_name,
-                         "current path": current_path}
+            data_dict = {"name": file_name, "current path": current_path}
 
             response = requests.post(url=url, files=files, data=data_dict)
             return response.text
@@ -96,14 +88,12 @@ class Connect:
         url = self.Ip + "/" + self.comands_names["Check File"]
         with open(config.CLIENT_DIRECTORY + current_path + file_path, "rb") as file:
             file_name: str = file_path
-                
+
             files = {"file": (file)}  # str
-            data_dict = {"name": file_name,
-                        "current path": current_path}
+            data_dict = {"name": file_name, "current path": current_path}
 
             response = requests.get(url=url, files=files, data=data_dict)
             return response
-        
 
     def Get_Status(self) -> requests:
         """
@@ -113,6 +103,3 @@ class Connect:
         url = self.Ip + "/" + self.comands_names["Get Status"]
         respounse = requests.get(url=url)
         return respounse
-
-
-
