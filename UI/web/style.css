@@ -1,0 +1,212 @@
+::-webkit-scrollbar {
+    width: 0px; /* Для вертикальной полосы прокрутки */
+    height: 0; /* Для горизонтальной полосы прокрутки */
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+.header{
+    background: black;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    height: 100px;
+}
+
+.header h1{
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 29px;
+    font-weight: 200;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.Chouse_Mode{
+    margin-top: 120px;
+    display: block;
+}
+.Chouse_Mode button{
+    height: 40px;
+    width: 200px;
+    margin-left: 35px;
+    border: 0;
+    border-radius: 40px;
+    background: rgb(214, 231, 230);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    transition: background, 0.5s, ease-in-out;
+    color: rgb(65, 66, 54);
+}
+
+.Chouse_Mode .active_button{
+    background: rgb(176, 231, 228);
+}
+
+.server {
+    margin-top: 30px;
+    width: 100%;
+    
+}
+
+.remove_class{
+    display: none;
+}
+
+.input{
+    border: 0;
+    background: rgba(0, 0, 0, 0.171);
+    color: black;
+    font-size: 15px;
+    width: 200px;
+    height: 30px;
+    position: absolute;
+    left: 50%;
+    margin-top: 15px;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+#input_port{
+    width: 60px;
+}
+
+.input:focus{
+    outline: none;
+}
+
+.text{
+    display: inline-block;
+    margin-left: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+}
+
+.server .start_button{
+    display: block;
+    margin-top: 20px;
+}
+.server .start_button button{
+    width: 300px;
+    border: 0;
+    height: 40px;
+    border-radius: 40px;
+    margin-left: 100px;
+    font-size: 25px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background: rgba(201, 201, 201, 0.61);
+    
+}
+
+
+.client {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.client .syn_button{
+    display: block;
+    margin-top: 20px;
+}
+
+.client .syn_button button{
+    width: 300px;
+    border: 0;
+    height: 40px;
+    border-radius: 40px;
+    margin-left: 100px;
+    font-size: 25px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background: rgba(201, 201, 201, 0.61);
+    
+}
+
+.server .log .ip{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
+    color: blue;
+    font-weight: 100;
+}
+
+.elements .contain{
+    width: 100%;
+    background: rgb(200, 232, 247);
+    color: rgb(97, 97, 97);
+    height: 70px;
+    margin-left: 0;
+
+    /* animation: Hide 2s ease backwards; */
+
+}
+
+
+
+.elements .contain h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 200;
+    margin-left: 30px;
+    display: inline-block;
+    width: 220px; /* Установите ширину контейнера */
+    white-space: nowrap; /* Запрещает перенос текста на новую строку */
+    overflow: hidden; /* Обрезает текст, выходящий за границы */
+    text-overflow: ellipsis; /* Добавляет многоточие в конце обрезанного текста */
+}
+
+.elements .contain .wei{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 200;
+    position: absolute;
+    margin-top: 20px;
+    left: 250px;
+}
+
+.text_elements{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 200;
+    position: relative;
+    margin-top: 50px;
+    left: 20px;
+}
+
+.hide{
+    /* animation: Hide 2s ease forwards; */
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes Hide{
+    0% {
+        transform: translateY(0);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    99%{
+        display: block;
+    }
+
+    100% {
+        transform: translateY(-200px);
+        opacity: 0;
+        display: none;
+    }
+}

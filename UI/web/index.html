@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBC_LN</title>
+    <link rel="icon" href="image/icon.webp" type="image/x-icon">
+</head>
+<script type="text/javascript" src="/eel.js"></script>
+<!-- <script src="script.js"></script> -->
+<script src="script.js"></script>
+<body>
+    <div class="header">
+        <h1>Connect Between Computer <br>
+            In Local Network</h1>
+    </div>
+    <div class="Chouse_Mode">
+        <button id="server" class="active_button" onclick="change_type(0)">Is Server</button>
+        <button id="client" onclick="change_type(1)">Is Client</button>
+    </div>
+    <div class="server">
+        <h1 class="text" id="input_port_text">Enter your port:</h1>
+        <input class="input" id="input_port" type="number">
+
+        <div class="divade"></div>
+
+        <h1 class="text" id="input_path_text">Enter your path:</h1>
+        <input class="input" id="input_path" type="text">
+        <div class="start_button">
+            <button onclick="Start_Server()">Start server</button>
+        </div>
+
+        <div class="log">
+            <h1 class="ip"></h1>
+        </div>
+
+    </div>
+    <div class="client remove_class">
+        
+
+        <h1 class="text" id="input_link_text">Enter server link:</h1>
+        <input class="input" id="input_link" type="text">
+
+        <div class="divade"></div>
+
+        <h1 class="text" id="input_client_path_text">Enter your path:</h1>
+        <input class="input" id="input_client_path" type="text">
+
+        <div class="syn_button">
+            <button onclick="Syn()">File synchronization</button>
+        </div>
+
+        <div class="log">
+            <h1 class="text_elements" onclick="Hide_List('.client .log .Add_elements')">Add elements:</h1>
+            <div class="Add_elements elements">
+
+                <div class="Add contain">
+                    <h1>test.txt</h1>
+                    <h1 class="wei">100 mb</h1>
+                </div>
+            </div>
+            
+            <h1 class="text_elements" onclick="Hide_List('.client .log .Remove_elements')">Remove elements:</h1>
+            <div class="Remove_elements elements">
+
+                <div class="Add contain">
+                    <h1>test.txt</h1>
+                    <h1 class="wei">100 mb</h1>
+                </div>
+            </div>   
+
+            <h1 class="text_elements" onclick="Hide_List('.client .log .Change_elements')">Change elements:</h1>
+            <div class="Change_elements elements">
+
+                <div class="Add contain">
+                    <h1>test.txt</h1>
+                    <h1 class="wei">100 mb</h1>
+                </div>
+            </div>   
+        </div>
+    </div>
+    
+</body>
+
+</html>
