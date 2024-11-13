@@ -10,22 +10,25 @@ class Checker:
 
     def File_Is_Be(self, file_name: str) -> bool:
         """Is file be"""
-        for element in os.listdir(self.Path):
-            if element == file_name:
-                return True
-
+        try:
+            for element in os.listdir(self.Path):
+                if element == file_name:
+                    return True
+        except:
+            return False
         return False
 
     def Check_Changes(self, file_name: str, new_file: any) -> bool:
         """Check does new file have different bettwen old file"""
-        with open(self.Path + file_name, "rb") as old_file:
-            old_hash = self.Get_File_Hash(old_file)
-            new_file.seek(0)
-            new_hash = self.Get_File_Hash(new_file)
+        try:
+            with open(self.Path + file_name, "rb") as old_file:
+                old_hash = self.Get_File_Hash(old_file)
+                new_file.seek(0)
+                new_hash = self.Get_File_Hash(new_file)
 
-            return old_hash != new_hash
-
-        return False
+                return old_hash != new_hash
+        except:
+            return False
 
     def Get_File_Hash(self, file) -> str:
         """return hash"""

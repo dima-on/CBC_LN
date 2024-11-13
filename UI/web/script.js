@@ -17,6 +17,8 @@ async function Start_Server() {
 
 }
 
+timer = null
+
 async function Syn() {
     ip_item = document.getElementById("input_link")
     path_item = document.getElementById("input_client_path")
@@ -24,26 +26,69 @@ async function Syn() {
     ip = ip_item.value
     path = path_item.value
 
+    button_syn = document.querySelector('.client .syn_button button')
     
-    console.log(path)
-    res = await eel.Synchronizate_Fun(ip, path)();
-    Add_elements(res["Add elements"], ".client .log .Add_elements")
-    Add_elements(res["Remove elements"], ".client .log .Remove_elements")
-    Add_elements(res["Change elements"], ".client .log .Change_elements")
+    
+    Change_Text("Getting size")
+
+    
+    size = await eel.Get_Full_Size(ip, path)();
+    Stop_Timer()
+    Change_Text("Loading")
+
+    console.log(size)
+    Del_element(".client .log .Add_elements")
+    Del_element(".client .log .Remove_elements")
+    Del_element(".client .log .Change_elements")
+
+
+    res = await eel.Synchronizate_Fun(size)();
+    // Add_elements(res["Add elements"], ".client .log .Add_elements")
+    // Add_elements(res["Remove elements"], ".client .log .Remove_elements")
+    // Add_elements(res["Change elements"], ".client .log .Change_elements")
 
 
 }
 
-function Add_elements(el, path){
-    var parrent = document.querySelector(path)
 
+function Stop_Timer(){
+    if (timer){
+        clearInterval(timer);
+        console.log(timer)
+        timer = null
+    }
+}
+
+async function Change_Text(text) {
+    button_syn = document.querySelector('.client .syn_button button')
+    num_count = 0
+    button_syn.innerHTML = text
+    timer = setInterval(() => {
+        button_syn.innerHTML += "."
+        num_count += 1
+        console.log(num_count)
+        if (num_count > 3){
+            button_syn.innerHTML = text
+            num_count = 0
+        }
+      }, 400)
+}
+
+function Del_element(path){
+    var parrent = document.querySelector(path)
     while (parrent.firstChild) {
         parrent.removeChild(parrent.firstChild);
     }
+}
+eel.expose(Add_elements)
+function Add_elements(el, path){
+    Stop_Timer()
+
+    var parrent = document.querySelector(path)
+
     
-    for (i in el){
-        console.log(el[i])
-        var newDiv = document.createElement('div');
+        
+    var newDiv = document.createElement('div');
         newDiv.classList.add('Add');
         newDiv.classList.add('contain');
 
@@ -51,10 +96,10 @@ function Add_elements(el, path){
         var file_wei = document.createElement('h1')
 
         file_wei.classList.add("wei")
-        file_name.innerHTML = el[i][0]
+        file_name.innerHTML = el[0]
 
         adder = "Mb"
-        size = (el[i][1] / 1000)
+        size = (el[1] / 1000)
         console.log(size)
         if (size > 100){
             size /= 1000
@@ -66,7 +111,7 @@ function Add_elements(el, path){
         newDiv.appendChild(file_wei)
 
         parrent.appendChild(newDiv)
-    }
+    
 
 }
 
@@ -81,7 +126,18 @@ function Hide_List(path){
     }
 }
 
-
+eel.expose(Set_Proces)
+function Set_Proces(proc){
+    console.log(proc)
+    button_syn = document.querySelector('.client .syn_button button')
+    
+    if (proc >= 99){
+        button_syn.innerHTML = "File synchronization"
+    }
+    else{
+        button_syn.innerHTML = proc + "%"
+    }
+}
 
 
 type_work = 0

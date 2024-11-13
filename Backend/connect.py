@@ -79,7 +79,7 @@ class Connect:
             response = requests.post(url=url, files=files, data=data_dict)
             return response.text
 
-    def Check_File(self, file_path: str, current_path) -> requests:
+    def Check_File(self, file_path: str, current_path: str, type_check: int) -> requests:
         """
         Check file was changed \n
         call from client to server
@@ -90,9 +90,9 @@ class Connect:
             file_name: str = file_path
 
             files = {"file": (file)}  # str
-            data_dict = {"name": file_name, "current path": current_path}
+            data_dict = {"name": file_name, "current path": current_path, "type check": type_check}
 
-            response = requests.get(url=url, files=files, data=data_dict)
+            response = requests.get(url=url, files=files, data=data_dict, timeout=300)
             return response
 
     def Get_Status(self) -> requests:

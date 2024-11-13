@@ -154,16 +154,22 @@ class Server:
         file = flask.request.files["file"]
         name = flask.request.form.get("name")
         current_path = flask.request.form.get("current path")
-
-        checker = synchronization.Checker(path=config.SERVER_DIRECTORY + current_path)
+        type_check = int(flask.request.form.get("type check"))
+        
+        checker = synchronization.Checker(path=(config.SERVER_DIRECTORY + current_path).replace("\\\\", "\\") )
         if file:
             is_be = checker.File_Is_Be(name)
-            if is_be:
-
-                if checker.Check_Changes(file_name=name, new_file=file):
-                    return "True", 200
-                else:
-                    return "False", 200
+            if type_check == 0:
+                return str(is_be), 200
+            
+            if type_check == 1:
+                if is_be:
+                    
+                    if checker.Check_Changes(file_name=name, new_file=file):
+                        return "True", 200
+                    else:
+                        return "False", 200
+            return "Non Type", 400
 
         return "Error", 400
 
