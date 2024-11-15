@@ -13,8 +13,8 @@ PATH_NAME: dict[str, str]  = {
     "Get Status": "Get_Status"
 }
 
-SERVER_DIRECTORY = "NONE"
-CLIENT_DIRECTORY = ""
+SERVER_DIRECTORY: str = ""
+CLIENT_DIRECTORY: str = ""
 
 DATA_PATH = "C:\\Users\\sinic\\Python Project\\CBC_LN\\Info\\data.json"
 

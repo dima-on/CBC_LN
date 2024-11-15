@@ -53,7 +53,7 @@ class Server:
     def Add_File():
         """
         Add file only on the server \n
-        param: file and name of file
+        param: file, name of file and current_path
         """
         print("start")
 
@@ -107,11 +107,6 @@ class Server:
                 else:
                     size = os.path.getsize(path)
                     os.remove(path)
-
-                # data_class = synchronization.Data(config.DATA_PATH)
-                # data_class.Write_Data(
-                #     "Remove File", (data_class.Get_Normal_Time(time.time()), name)
-                # )
 
                 return str(size), 200
 
