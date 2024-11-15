@@ -43,12 +43,17 @@ def Set_Proc(proc):
 def Add_Block(element, wei):
     eel.Add_elements([element, wei], ".client .log .Add_elements")
 
+@eel.expose
+def Set_Current_File(element):
+    eel.Set_Current_File(element)
+
 
 def Delegate_Proces(Proc: int) -> None:
     Set_Proc(Proc)
 
 def Delegate_Add_Block(element: str, wei: int) -> None:
     Add_Block(element, wei)
+    Set_Current_File(element)
 
 @eel.expose
 def Get_Full_Size(link: str, path: str) -> float:
@@ -73,4 +78,4 @@ def Synchronizate_Fun(Size: float) -> dict:
 
 
 # Запуск веб-приложения
-eel.start("index.html", port=809, size=(500, 500))
+eel.start("index.html", port=808, size=(500, 500))

@@ -10,12 +10,12 @@ class Connect:
         self.Ip: str = ip
         self.comands_names: dict[str, str] = comands_names
 
-    def Add_File(self, file_path: str, current_path: str) -> tuple[any, int]:
+    def Add_File(self, file_name: str, current_path: str) -> tuple[any, int]:
         """Add file from client to server"""
 
         url = self.Ip + "/" + self.comands_names["Add File"]
-        with open(config.CLIENT_DIRECTORY + current_path + file_path, "rb") as file:
-            file_name: str = file_path
+        
+        with open(config.CLIENT_DIRECTORY + current_path + file_name, "rb") as file:
 
             files = {"file": (file)}
 
@@ -23,7 +23,7 @@ class Connect:
             response = requests.post(url=url, files=files, data=data_dict)
 
             file_size = os.path.getsize(
-                config.CLIENT_DIRECTORY + current_path + "\\" + file_path
+                config.CLIENT_DIRECTORY + current_path + "\\" + file_name
             )
 
             return response, file_size
@@ -63,14 +63,17 @@ class Connect:
 
         response = requests.post(url=url, data=data_dict)
 
-    def Change_File(self, file_path: str, current_path: str) -> requests:
+        return response
+
+    def Change_File(self, file_name: str, current_path: str) -> requests:
         """
         Change file on the server \n
         call from client to server
         """
         url = self.Ip + "/" + self.comands_names["Change File"]
-        with open(config.CLIENT_DIRECTORY + current_path + file_path, "rb") as file:
-            file_name: str = file_path
+        
+        with open(config.CLIENT_DIRECTORY + current_path + file_name, "rb") as file:
+            
 
             files = {"file": (file)}
 
@@ -79,19 +82,18 @@ class Connect:
             response = requests.post(url=url, files=files, data=data_dict)
             return response.text
 
-    def Check_File(self, file_path: str, current_path: str, type_check: int) -> requests:
+    def Check_File(self, file_name: str, current_path: str, type_check: int) -> requests:
         """
         Check file was changed \n
         call from client to server
         """
 
         url = self.Ip + "/" + self.comands_names["Check File"]
-        with open(config.CLIENT_DIRECTORY + current_path + file_path, "rb") as file:
-            file_name: str = file_path
 
+        with open(config.CLIENT_DIRECTORY + current_path + file_name, "rb") as file:
             files = {"file": (file)}  # str
-            data_dict = {"name": file_name, "current path": current_path, "type check": type_check}
 
+            data_dict = {"name": file_name, "current path": current_path, "type check": type_check}
             response = requests.get(url=url, files=files, data=data_dict, timeout=300)
             return response
 

@@ -180,33 +180,20 @@ body{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-@keyframes Hide{
-    0% {
-        transform: translateY(0);
-    }
-
-    20% {
-        opacity: 1;
-    }
-
-    99%{
-        display: block;
-    }
-
-    100% {
-        transform: translateY(-200px);
-        opacity: 0;
-        display: none;
-    }
+.client .syn_button p{
+    text-align: center;
+    display: block;
+    color: rgba(109, 109, 109, 0.664);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
 }
+
+
+
+
+
+
+
+
+
+

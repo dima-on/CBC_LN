@@ -74,6 +74,12 @@ async function Change_Text(text) {
       }, 400)
 }
 
+eel.expose(Set_Current_File)
+function Set_Current_File(file_name){
+    text = document.querySelector('.client .syn_button p')
+    text.innerHTML = file_name
+}
+
 function Del_element(path){
     var parrent = document.querySelector(path)
     while (parrent.firstChild) {

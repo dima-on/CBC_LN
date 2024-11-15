@@ -19,3 +19,8 @@ def end_file(name: str):
     pass
     # text = Color_Text(Fore.BLUE, "Finish " + name)
     # print(text)
+
+
+
+def test_to_work():
+    return 10

@@ -9,10 +9,11 @@ from Info import config
 import shutil
 from Backend import dop
 import logging
+import multiprocessing
 
 app = flask.Flask(__name__)
-log = logging.getLogger("werkzeug")
-log.setLevel(logging.ERROR)
+# log = logging.getLogger("werkzeug")
+# log.setLevel(logging.ERROR)
 
 
 class Server:
@@ -22,22 +23,24 @@ class Server:
         """
         :param port: which port will be using
         """
+        print(config.SERVER_DIRECTORY)
+
         path = config.SERVER_DIRECTORY + ".info"
-        if (
-            synchronization.Checker(config.SERVER_DIRECTORY).File_Is_Be(".info")
-            == False
-        ):
-            os.mkdir(path)
-            with open(str(path) + "\\" + "data.json", "w") as json_file:
-                json.dump({}, json_file)
-                config.DATA_PATH = str(path) + "\\" + "data.json"
-        else:
-            config.DATA_PATH = str(path) + "\\" + "data.json"
+        # if (
+        #     synchronization.Checker(config.SERVER_DIRECTORY).File_Is_Be(".info")
+        #     == False
+        # ):
+        #     os.mkdir(path)
+        #     with open(str(path) + "\\" + "data.json", "w") as json_file:
+        #         json.dump({}, json_file)
+        #         config.DATA_PATH = str(path) + "\\" + "data.json"
+        # else:
+        #     config.DATA_PATH = str(path) + "\\" + "data.json"
 
         self.Port = port
 
-    def Start_Server(self):
-        app.run(host="0.0.0.0", port=self.Port)
+    def Start_Server(self) -> None:
+        app.run(host="0.0.0.0", port=self.Port, debug=True, use_reloader=False)
 
     def Get_Info(self) -> tuple[str, int]:
 
@@ -52,6 +55,7 @@ class Server:
         Add file only on the server \n
         param: file and name of file
         """
+        print("start")
 
         file = flask.request.files["file"]
         name = flask.request.form.get("name")
@@ -77,6 +81,7 @@ class Server:
 
         else:
             return "dont have file", 401
+    
 
     @app.route("/" + config.PATH_NAME["Remove File"], methods=["POST"])
     def Remove_File():
