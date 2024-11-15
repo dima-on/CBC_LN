@@ -45,22 +45,23 @@ class Data:
         self.Data_Path = data_path
 
     def Write_Data(self, key: str, value: any) -> None:
-        """Write data in json file"""
+        # """Write data in json file"""
+        pass
+        # with open(self.Data_Path, "r") as file:
+        #     j_file = json.load(file)
 
-        with open(self.Data_Path, "r") as file:
-            j_file = json.load(file)
+        # j_file[key] = value
 
-        j_file[key] = value
-
-        with open(self.Data_Path, "w") as file:
-            json.dump(j_file, file)
+        # with open(self.Data_Path, "w") as file:
+        #     json.dump(j_file, file)
 
     def Read_Data(self) -> dict:
-        """Read data from json file"""
+        # """Read data from json file"""
 
-        with open(self.Data_Path, "r") as file:
-            j_file = json.load(file)
-            return dict(j_file)
+        # with open(self.Data_Path, "r") as file:
+        #     j_file = json.load(file)
+        #     return dict(j_file)
+        pass
 
     def Get_Normal_Time(self, time: float) -> str:
         """Get normal time"""
