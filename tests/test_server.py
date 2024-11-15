@@ -1,5 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from Backend.server import app  # Импортируем ваше Flask-приложение
 
 def test_add_file():
