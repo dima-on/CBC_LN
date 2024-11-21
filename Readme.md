@@ -1,117 +1,123 @@
-# Документация проекта
+# Project Documentation
 
-## Описание
-Этот проект представляет собой клиент-серверное приложение для синхронизации файлов. Клиентская часть отправляет данные на сервер, который управляет файлами, проверяет их наличие и изменения, а также предоставляет функционал для добавления и удаления файлов и папок.
+## Description
+This project is a client-server application for file synchronization. The client side sends data to the server, which manages files, checks their existence and changes, and provides functionality for adding and deleting files and folders.
 
 ---
 
-## Основные модули
+## Core Modules
 
 ### `visual.py`
-Основной файл для запуска приложения с использованием библиотеки `eel` для взаимодействия с HTML-интерфейсом.
+The main file for running the application using the `eel` library to interact with an HTML interface.
 
-#### Основные функции:
-- `Start_Server()`: Запускает сервер.
-- `Get_Info(port, path)`: Возвращает информацию о сервере (IP и порт) по заданному пути и порту.
-- `Get_Full_Size(link, path)`: Вычисляет общий размер файлов для синхронизации.
-- `Synchronizate_Fun(Size)`: Выполняет синхронизацию клиентской директории с сервером.
+#### Key Functions:
+- `Start_Server()`: Starts the server.
+- `Get_Info(port, path)`: Returns server information (IP and port) for the given path and port.
+- `Get_Full_Size(link, path)`: Calculates the total size of files to be synchronized.
+- `Synchronizate_Fun(Size)`: Synchronizes the client directory with the server.
 
 ---
 
 ### `main.py`
-Модуль, содержащий классы для клиента и сервера, а также утилиты для работы с путями.
+A module containing classes for the client and server, along with utilities for handling paths.
 
-#### Класс `Client`
-Отвечает за взаимодействие с сервером и управление клиентскими файлами.
+#### Class `Client`
+Handles interaction with the server and manages client files.
 
-- `__init__(func)`: Инициализация клиента, настройка подключения и данных.
-- `Get_Full_Size(current_path)`: Подсчитывает общий размер файлов в директории.
-- `syn(current_path)`: Синхронизирует клиентские файлы с сервером.
+- `__init__(func)`: Initializes the client, configuring the connection and data.
+- `Get_Full_Size(current_path)`: Calculates the total size of files in a directory.
+- `syn(current_path)`: Synchronizes client files with the server.
 
-#### Класс `Server`
-Предоставляет функционал для запуска и управления сервером.
+#### Class `Server`
+Provides functionality for starting and managing the server.
 
-- `__init__()`: Инициализация сервера.
-- `Get_Info()`: Возвращает информацию о сервере (IP и порт).
-- `Run()`: Запускает сервер.
+- `__init__()`: Initializes the server.
+- `Get_Info()`: Returns server information (IP and port).
+- `Run()`: Starts the server.
 
-#### Утилита `Refactor_Path(path)`
-Приводит путь к стандартному формату, добавляя обратные слэши.
+#### Utility `Refactor_Path(path)`
+Converts the path to a standard format by adding backslashes.
 
 ---
 
 ### `server.py`
-Реализует серверную часть с использованием Flask. 
+Implements the server-side logic using Flask.
 
-#### Класс `Server`
-- `Start_Server()`: Запускает сервер Flask.
-- `Get_Info()`: Возвращает IP-адрес и порт сервера.
+#### Class `Server`
+- `Start_Server()`: Starts the Flask server.
+- `Get_Info()`: Returns the server's IP address and port.
 
-#### Основные маршруты:
-- `POST /Add File`: Добавление файла на сервер.
-- `POST /Remove File`: Удаление файла с сервера.
-- `POST /Change File`: Изменение файла на сервере.
-- `GET /Check File`: Проверка наличия файла на сервере.
-- `POST /Add Folder`: Добавление папки на сервер.
-- `GET /Check Removed`: Проверка отсутствующих файлов на клиенте.
-- `GET /Get Status`: Возвращает статус сервера.
+#### Key Routes:
+- `POST /Add File`: Adds a file to the server.
+- `POST /Remove File`: Deletes a file from the server.
+- `POST /Change File`: Updates a file on the server.
+- `GET /Check File`: Checks for a file's existence on the server.
+- `POST /Add Folder`: Adds a folder to the server.
+- `GET /Check Removed`: Checks for missing files on the client.
+- `GET /Get Status`: Returns the server's status.
 
 ---
 
 ### `synchronization.py`
-Модуль для работы с синхронизацией и проверкой файлов.
+A module for handling file synchronization and validation.
 
-#### Класс `Checker`
-- `File_Is_Be(file_name)`: Проверяет наличие файла в заданной директории.
-- `Check_Changes(file_name, new_file)`: Проверяет изменения между новым и старым файлом.
-- `Get_File_Hash(file)`: Возвращает хеш файла.
+#### Class `Checker`
+- `File_Is_Be(file_name)`: Checks if a file exists in the specified directory.
+- `Check_Changes(file_name, new_file)`: Compares a new file with the existing one for changes.
+- `Get_File_Hash(file)`: Returns the file's hash.
 
-#### Класс `Data`
-- `Write_Data(key, value)`: Записывает данные в JSON-файл (реализация закомментирована).
-- `Read_Data()`: Читает данные из JSON-файла (реализация закомментирована).
-- `Get_Normal_Time(time)`: Преобразует временную метку в строку формата `YYYY-MM-DD HH:MM:SS`.
+#### Class `Data`
+- `Write_Data(key, value)`: Writes data to a JSON file (implementation commented out).
+- `Read_Data()`: Reads data from a JSON file (implementation commented out).
+- `Get_Normal_Time(time)`: Converts a timestamp to the format `YYYY-MM-DD HH:MM:SS`.
 
 ---
 
-## Установка и запуск
+## Installation and Running
 
-1. Установите зависимости:
+1. Install dependencies:
    ```bash
    pip install -r requirements.txt
 
 
-2. Запустите клиент:
+
+2. Start the app:
+
    ```bash
    python visual.py
 
 
 ---
 
-## Пример использования API
+## API Usage Examples
 
-### Добавление файла
+### Add File
 
-**Маршрут**: `POST /Add File`  
-**Параметры**:
-- `file`: Файл, отправляемый на сервер.
-- `name`: Имя файла.
-- `current path`: Текущий путь.
+**Route**: `POST /Add File`  
+**Parameters**:
 
-**Ответы**:
-- `200`: Файл успешно добавлен.
-- `201`: Файл уже существует.
-- `401`: Ошибка при передаче файла.
+- `file`: File to upload to the server.  
+- `name`: File name.  
+- `current path`: Current path.  
+
+**Responses**:
+
+- `200`: File successfully added.  
+- `201`: File already exists.  
+- `401`: Error uploading the file.  
 
 ---
 
-### Проверка файла
+### Check File
 
-**Маршрут**: `GET /Check File`  
-**Параметры**:
-- `name`: Имя файла.
-- `current path`: Текущий путь.
-- `type check`: Тип проверки (`0` или `1`).
+**Route**: `GET /Check File`  
+**Parameters**:
 
-**Ответы**:
-- `200`: Успешная проверка.
-- `400`: Ошибка в запросе.
+- `name`: File name.  
+- `current path`: Current path.  
+- `type check`: Check type (`0` or `1`).  
+
+**Responses**:
+
+- `200`: Successful check.  
+- `400`: Invalid request.  
