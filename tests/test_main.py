@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch, MagicMock, ANY, call
+from unittest.mock import patch, MagicMock, ANY, call, mock_open
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from Interface.main import Server, Client
@@ -40,10 +40,22 @@ def patch_add_folder():
 def mock_fun_empty(*args, **kwargs):
     pass
 
+@pytest.fixture
+def mock_open_fixture():
+    with patch("builtins.open", "r"):
+        mock_file_path = "C:\\Users\\sinic\\Python_Project\\CBC_LN\\tests\\test_file\\Client\\tes.txt"
+        with open(mock_file_path, 'w') as f:
+            f.write("Mock file content")
+        yield mock_file_path  # Return the mock file path
+    # Clean up if needed (e.g., remove the mock file)
+
 def test_get_full_size(patch_check_file):
     mock_response = MagicMock()
     mock_response.text = "False"
     patch_check_file.return_value = mock_response
+
+    # Ensure the mock returns a valid file object
+    
     current_path = "C:\\Users\\sinic\\Python_Project\\CBC_LN\\tests\\test_file\\Client\\"
     client = Client([mock_fun_empty, mock_fun_empty])
 
@@ -56,6 +68,7 @@ def test_get_full_size(patch_check_file):
     )
 
     assert size >= 0
+
 
 def test_syn(patch_check_file, 
              patch_add_file, 

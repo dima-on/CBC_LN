@@ -47,7 +47,7 @@ class Data:
     def Write_Data(self, key: str, value: any) -> None:
         # """Write data in json file"""
         pass
-        # with open(self.Data_Path, "r") as file:
+        #with open(self.Data_Path, "r") as file:
         #     j_file = json.load(file)
 
         # j_file[key] = value
